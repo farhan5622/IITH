@@ -1,0 +1,183 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from skimage import data
+
+# Transpose of a Matrix (as nested list)
+a = [[1,2,3,4],[2,3,4,5]]
+b = np.transpose(a)
+print('a\n', a)
+print('b\n', b)
+
+# Transpose of a Matrix (as NumPy array) 
+a = np.array([[1,2,3,4],[2,3,4,5]])
+b = a.T
+print("\nMatrix and its Transpose")
+print('a\n', a)
+print('b\n', b)
+
+# Dot product of scalars
+a = 5
+b = 3
+z = np.dot(a,b)
+print("\nDot product of scalars:", z)
+z = a * b
+print("Multiplication of scalars:", z)
+
+# Dot product of 1D arrays or vectors
+a = np.array([1,2,3])
+b = np.array([2,3,4])
+z = np.dot(a,b)
+print("\nDot product of 1D arrays:", z)
+
+# Dot product of 2D arrays or matrices
+a = [[1,2,3],[2,0,3],[7,-5,1]]
+b = [[3,-1,5],[-2,-6,4],[0,4,4]]
+z = np.dot(a,b)
+print("\nDot product of 2D arrays:\n", z)
+
+# Using np.matmul()
+z = np.matmul(a,b)
+print("\nUsing np.matmul():\n", z)
+
+# Numpy Arrays and dot method
+newa = np.array(a)
+newb = np.array(b)
+z = newa.dot(newb)
+print("\nUsing dot method on NumPy arrays:\n", z)
+
+# multi_dot method
+a = np.random.randint(-4,4,(500,5))
+b = np.random.randint(-4,4,(5,1000))
+c = np.random.randint(-4,4,(1000,10))
+d = np.random.randint(-4,4,(10,2000))
+e = np.random.randint(-4,4,(2000,200))
+z = np.linalg.multi_dot([a,b,c,d,e])
+
+# Timing the operations
+%%time
+z = np.linalg.multi_dot([a,b,c,d,e])
+print(z, '\n')
+
+%%time
+z = a.dot(b).dot(c).dot(d).dot(e)
+print(z, '\n')
+
+# Inner Product
+a = np.array([[1,2,3], [4,-1,0]])
+b = np.array([6,3,2])
+z = np.inner(a,b)
+print("\nInner Product:", z)
+
+# Using dot method for inner product
+print(a.dot(b.T))
+
+# Outer Product
+a = np.array([1,2,3,4,5])
+b = np.array([6,3,2])
+z = np.outer(a,b)
+print("\nOuter Product:\n", z)
+
+# Matrix multiplication with @ symbol
+a = np.random.random([3,2,5])
+b = np.random.random([3,5,3])
+z = a @ b
+print("\nMatrix multiplication with @:\n", z.shape)
+
+# Matrix Determinant
+a = np.random.randint(1,10,[3,3])
+det = np.linalg.det(a)
+print("\nMatrix Determinant:", int(det))
+
+# Matrix Inverse
+a = np.random.randint(1,10,[3,3])
+inv = np.linalg.inv(a)
+print("\nMatrix:\n", a)
+print("\nInverse of Matrix:\n", inv)
+
+# Matrix Power
+a = np.random.random([4,4])
+a_2 = np.linalg.matrix_power(a, 2)
+a_7 = np.linalg.matrix_power(a, 7)
+a_inv_1 = np.linalg.matrix_power(a, -1)
+a_inv_3 = np.linalg.matrix_power(a, -3)
+print("\nMatrix \n", a)
+print("\nMatrix to the power 2\n", a_2)
+print("\nMatrix to the power 7\n", a_7)
+print("\nMatrix inverse \n", a_inv_1)
+print("\nMatrix cubic inverse \n", a_inv_3)
+
+# Eigenvalues and Eigenvectors
+a = np.arange(9).reshape(3,3)
+eig_val, eig_vec = np.linalg.eig(a)
+print("\nEigenvalues are:\n", eig_val)
+print("\nEigenvectors are:\n", eig_vec)
+
+# Eigenvalues alone using eigvals
+eigenvalues = np.linalg.eigvals(a)
+print("\nEigenvalues alone:\n", eigenvalues)
+
+# Trace of a Matrix
+a = np.eye(5)
+z = np.trace(a)
+print("\nMatrix:\n", a)
+print("\nTrace of matrix is:", z)
+
+# Matrix Norm
+a = np.arange(12).reshape(4,3)
+z = np.linalg.norm(a)
+print("\nMatrix:\n", a)
+print("\nFrobenius Norm of above matrix:", z)
+
+# Norm along axis 0
+z = np.linalg.norm(a, axis=0)
+print("\nNorm along axis 0:", z)
+
+# Solving System of Equations
+a = np.random.randint(1,20,[4,4])
+b = np.array([4,9,12,7])
+x = np.linalg.solve(a,b)
+print("\nCoefficient Matrix:\n", a)
+print("\nDependent Variable vector:\n", b)
+print("\nSolution:\n", x)
+B = a.dot(x)
+print("\nCheck for correctness:\n", B)
+
+# Singular Value Decomposition
+image = data.astronaut()
+print(image.dtype, image.min(), image.max(), image.shape)
+plt.imshow(image)
+plt.show()
+
+# Normalize the image
+img = image / 255.0
+img = np.transpose(img, axes=(2,0,1))
+
+# Perform SVD on the image
+U, S, V = np.linalg.svd(img)
+print(U.shape, S.shape, V.shape)
+
+# Sigma matrix should have dimensions suitable for matrix multiplication
+Sigma = np.zeros((3,512,512))
+for i in range(3):
+    np.fill_diagonal(Sigma[i,:,:], S[i,:])
+print(Sigma.shape)
+
+# Reconstruct the original image without any dimension reduction
+reconst = U @ Sigma @ V
+reconst = np.transpose(reconst, axes=(1,2,0))
+plt.imshow(reconst)
+plt.show()
+
+# Reconstruct the data by reducing the common dimensions from 512 to 50
+k = 50
+reconst = U @ Sigma[:,:,:k] @ V[:,:k,:]
+reconst = np.transpose(reconst, axes=(1,2,0))
+plt.imshow(reconst)
+plt.show()
+
+# Reconstruct the data by reducing the common dimensions from 512 to 20
+k = 20
+reconst = U @ Sigma[:,:,:k] @ V[:,:k,:]
+reconst = np.transpose(reconst, axes=(1,2,0))
+plt.imshow(reconst)
+plt.show()
