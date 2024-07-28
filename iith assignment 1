@@ -2,21 +2,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Transpose of a Matrix (as nested list)
-a = [[1, 2, 3, 4], [2, 3, 4, 5]]
+a = [[2, 4, 6, 8], [1, 3, 5, 7]]
 b = np.transpose(a)
 print('a\n', a)
 print('b\n', b)
 
 # Transpose of a Matrix (as NumPy array)
 print("Matrix and its Transpose")
-a = np.array([[1, 2, 3, 4], [2, 3, 4, 5]])
+a = np.array([[1, 3, 5, 7], [2, 4, 6, 8]])
 b = a.T
 print('a\n', a)
 print('b\n', b)
 
 # Scalars
-a = 5
-b = 3
+a = 7
+b = 4
 z = np.dot(a, b)
 print(z)
 
@@ -24,14 +24,14 @@ z = a * b
 print(z)
 
 # 1D arrays or vectors
-a = np.array([1, 2, 3])
-b = np.array([2, 3, 4])
+a = np.array([2, 4, 6])
+b = np.array([3, 5, 7])
 z = np.dot(a, b)
 print(z)
 
 # 2D arrays or matrices
-a = [[1, 2, 3], [2, 0, 3], [7, -5, 1]]
-b = [[3, -1, 5], [-2, -6, 4], [0, 4, 4]]
+a = [[2, 3, 4], [3, 1, 2], [5, 7, 6]]
+b = [[1, 0, 3], [4, 6, 5], [2, 3, 1]]
 z = np.dot(a, b)
 print(z)
 
@@ -46,11 +46,11 @@ z = newa.dot(newb)
 print(z)
 
 # Multiple matrix multiplication
-a = np.random.randint(-4, 4, (500, 5))
-b = np.random.randint(-4, 4, (5, 1000))
-c = np.random.randint(-4, 4, (1000, 10))
-d = np.random.randint(-4, 4, (10, 2000))
-e = np.random.randint(-4, 4, (2000, 200))
+a = np.random.randint(-5, 5, (300, 4))
+b = np.random.randint(-5, 5, (4, 700))
+c = np.random.randint(-5, 5, (700, 8))
+d = np.random.randint(-5, 5, (8, 1500))
+e = np.random.randint(-5, 5, (1500, 100))
 
 # Perform multiple matrix multiplication
 z = np.linalg.multi_dot([a, b, c, d, e])
@@ -69,8 +69,8 @@ print(z, '\n')
 print("CPU time for successive dot methods: %s seconds" % (time.time() - start_time))
 
 # Inner Product
-a = np.array([[1, 2, 3], [4, -1, 0]])
-b = np.array([6, 3, 2])
+a = np.array([[2, 3, 4], [6, -2, 1]])
+b = np.array([5, 2, 3])
 z = np.inner(a, b)
 print(z)
 
@@ -78,37 +78,37 @@ print(z)
 print(a.dot(b.T))
 
 # Outer Product
-a = np.array([1, 2, 3, 4, 5])
-b = np.array([6, 3, 2])
+a = np.array([2, 3, 4, 5, 6])
+b = np.array([7, 4, 3])
 z = np.outer(a, b)
 print(z)
 
 # Matrix Determinant
-a = np.random.randint(1, 10, [3, 3])
+a = np.random.randint(1, 15, [3, 3])
 det = np.linalg.det(a)
 print(int(det))
 
 # Matrix Inverse
-a = np.random.randint(1, 10, [3, 3])
+a = np.random.randint(1, 15, [3, 3])
 inv = np.linalg.inv(a)
 print(a)
 print()
 print(inv)
 
 # Matrix Power
-a = np.random.random([4, 4])
+a = np.random.random([3, 3])
 a_2 = np.linalg.matrix_power(a, 2)
-a_7 = np.linalg.matrix_power(a, 7)
+a_5 = np.linalg.matrix_power(a, 5)
 a_inv_1 = np.linalg.matrix_power(a, -1)
-a_inv_3 = np.linalg.matrix_power(a, -3)
+a_inv_2 = np.linalg.matrix_power(a, -2)
 print('matrix \n', a)
 print('\n matrix to the power 2\n', a_2)
-print('\n matrix to the power 7\n', a_7)
+print('\n matrix to the power 5\n', a_5)
 print('\n matrix inverse \n', a_inv_1)
-print('\n matrix cubic inverse \n', a_inv_3)
+print('\n matrix squared inverse \n', a_inv_2)
 
 # Eigenvalues and Eigenvectors
-a = np.arange(9).reshape(3, 3)
+a = np.random.randint(1, 10, (3, 3))
 eig_val, eig_vec = np.linalg.eig(a)
 print('Eigenvalues are: \n', eig_val)
 print('\nEigenvectors are: \n', eig_vec)
@@ -118,26 +118,26 @@ eigenvalues = np.linalg.eigvals(a)
 print(eigenvalues)
 
 # Traces of a Matrix
-a = np.eye(5)
+a = np.eye(4)
 print(a)
 z = np.trace(a)
 print('\nTrace of matrix is: ', z)
 
 # Matrix Norm
-a = np.arange(12).reshape(4, 3)
+a = np.arange(15).reshape(5, 3)
 z = np.linalg.norm(a)
 print(a)
 print('\n Frobenius Norm of above matrix:')
 print(z)
 
 # Norm along axis 0
-a = np.arange(12).reshape(4, 3)
+a = np.arange(15).reshape(5, 3)
 z = np.linalg.norm(a, axis=0)
 print(z)
 
 # Solving System of Equations
-a = np.random.randint(1, 20, [4, 4])
-b = np.array([4, 9, 12, 7])
+a = np.random.randint(1, 25, [3, 3])
+b = np.array([5, 8, 13])
 x = np.linalg.solve(a, b)
 print('Coefficient Matrix')
 print(a)
@@ -152,42 +152,40 @@ print(B)
 
 # Singular Value Decomposition (SVD)
 from skimage import data
-image = data.astronaut()
+image = data.camera()
 print(image.dtype, image.min(), image.max(), image.shape)
-plt.imshow(image)
+plt.imshow(image, cmap='gray')
 plt.show()
 
 # Normalize the image
 img = image / 255.0
-img = np.transpose(img, axes=(2, 0, 1))
+img = np.expand_dims(img, axis=0)
 
 # Perform SVD
 U, S, V = np.linalg.svd(img)
 print(U.shape, S.shape, V.shape)
 
 # S matrix for reconstruction
-Sigma = np.zeros((3, 512, 512))
-for i in range(3):
-    np.fill_diagonal(Sigma[i, :, :], S[i, :])
+Sigma = np.zeros((1, 512, 512))
+np.fill_diagonal(Sigma[0, :, :], S)
 print(Sigma.shape)
 
 # Reconstruct the original image
 reconst = U @ Sigma @ V
-reconst = np.transpose(reconst, axes=(1, 2, 0))
-plt.imshow(reconst)
+reconst = np.squeeze(reconst, axis=0)
+plt.imshow(reconst, cmap='gray')
 plt.show()
 
 # Dimensionality reduction and reconstruction
-k = 50
+k = 30
 reconst = U @ Sigma[:, :, :k] @ V[:, :k, :]
-reconst = np.transpose(reconst, axes=(1, 2, 0))
-plt.imshow(reconst)
+reconst = np.squeeze(reconst, axis=0)
+plt.imshow(reconst, cmap='gray')
 plt.show()
 
 # Further reduction
-k = 20
+k = 10
 reconst = U @ Sigma[:, :, :k] @ V[:, :k, :]
-reconst = np.transpose(reconst, axes=(1, 2, 0))
-plt.imshow(reconst)
+reconst = np.squeeze(reconst, axis=0)
+plt.imshow(reconst, cmap='gray')
 plt.show()
-
